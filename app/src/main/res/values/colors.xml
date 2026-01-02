@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_green">#a3d400</color>
+    <color name="dark_bg">#0D1601</color>
+    <color name="input_field">#f4ffb5</color>
+    <color name="placeholder">#7a7f5a</color>
+    <color name="button_green">#719800</color>
+    <color name="link_green">#C1DB4C</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

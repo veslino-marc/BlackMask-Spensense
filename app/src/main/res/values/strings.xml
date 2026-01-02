@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SpendSense</string>
+    <string name="tagline">Because every peso counts</string>
+    <string name="username">Username *</string>
+    <string name="email">Email Address *</string>
+    <string name="password">Password *</string>
+    <string name="confirm_password">Confirm Password *</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="already_account">Already have an account? </string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="create_pin">Create a 4-digits PIN</string>
+    <string name="confirm_pin">Confirm your 4-digit PIN</string>
+    <string name="enter_pin">Enter your 4-digit PIN</string>
+    <string name="continue_btn">Continue</string>
+    <string name="verify">Verify Now</string>
+    <string name="enter">Enter</string>
+</resources>
