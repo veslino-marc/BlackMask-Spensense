@@ -7,8 +7,9 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.SpendSense">
 
+        <!-- Splash Screen - App Entry Point -->
         <activity
-            android:name=".RegisterActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,12 +17,21 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".Pin1Activity" />
-        <activity android:name=".Pin2Activity" />
-        <activity android:name=".Pin3Activity" />
-        <activity android:name=".PINVerifyActivity" />
-        <activity android:name=".DashboardActivity" />
+        <activity android:name=".OnboardingActivity" android:exported="false" />
+        <activity android:name=".RegisterActivity" android:exported="false" />
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".Pin1Activity" android:exported="false" />
+        <activity android:name=".Pin2Activity" android:exported="false" />
+        <activity android:name=".Pin3Activity" android:exported="false" />
+        <activity android:name=".PINVerifyActivity" android:exported="false" />
+        <activity android:name=".DashboardActivity" android:exported="false" />
+        <activity android:name=".SetupPlan1Activity" android:exported="false" />
+        <activity android:name=".SetupPlan2Activity" android:exported="false" />
+        <activity android:name=".SetupPlan3Activity" android:exported="false" />
+        <activity android:name=".ProfileActivity" android:exported="false" />
+        <activity android:name=".AddTransactionActivity" android:exported="false" />
+        <activity android:name=".TrackActivity" android:exported="false" />
+        <activity android:name=".RecordActivity" android:exported="false" />
     </application>
 
 </manifest>

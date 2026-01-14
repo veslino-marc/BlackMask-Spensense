@@ -24,12 +24,6 @@ class LoginActivity : AppCompatActivity() {
 
         userManager = UserManager(this)
 
-        if (userManager.isLoggedIn()) {
-            startActivity(Intent(this, DashboardActivity::class.java))
-            finish()
-            return
-        }
-
         emailField = findViewById(R.id.email)
         passwordField = findViewById(R.id.password)
         loginBtn = findViewById(R.id.loginBtn)
@@ -49,6 +43,13 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginBtn.setOnClickListener { loginUser() }
+
+        // Register link
+        val registerLink: TextView = findViewById(R.id.registerLink)
+        registerLink.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+            finish()
+        }
     }
 
     private fun loginUser() {
@@ -68,7 +69,8 @@ class LoginActivity : AppCompatActivity() {
                     userManager.setLoggedIn(storedUsername)
                     Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this, DashboardActivity::class.java)
+                    // Go to PIN verification for security
+                    val intent = Intent(this, PINVerifyActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {

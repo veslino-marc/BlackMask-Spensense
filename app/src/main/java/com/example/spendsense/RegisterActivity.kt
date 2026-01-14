@@ -29,12 +29,6 @@ class RegisterActivity : AppCompatActivity() {
 
         userManager = UserManager(this)
 
-        if (userManager.isLoggedIn()) {
-            startActivity(Intent(this, DashboardActivity::class.java))
-            finish()
-            return
-        }
-
         usernameField = findViewById(R.id.username)
         emailField = findViewById(R.id.email)
         passwordField = findViewById(R.id.password)

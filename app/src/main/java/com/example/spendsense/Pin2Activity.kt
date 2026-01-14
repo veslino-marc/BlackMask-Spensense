@@ -2,6 +2,7 @@ package com.example.spendsense
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import android.widget.TextView
@@ -10,14 +11,26 @@ import androidx.appcompat.app.AppCompatActivity
 class Pin2Activity : AppCompatActivity() {
     private var pinCode = StringBuilder()
     private lateinit var pin1: String
+    private lateinit var userManager: UserManager
+    private lateinit var pinDots: Array<View>
     private lateinit var pinBoxes: Array<TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin2)
 
+        userManager = UserManager(this)
         pin1 = intent.getStringExtra("pin1") ?: ""
 
+        // New dot-based UI
+        pinDots = arrayOf(
+            findViewById(R.id.pinDot1),
+            findViewById(R.id.pinDot2),
+            findViewById(R.id.pinDot3),
+            findViewById(R.id.pinDot4)
+        )
+
+        // Keep pinBoxes for backward compatibility (hidden in layout)
         pinBoxes = arrayOf(
             findViewById(R.id.pinBox1),
             findViewById(R.id.pinBox2),
@@ -29,12 +42,22 @@ class Pin2Activity : AppCompatActivity() {
         verifyBtn.setOnClickListener {
             if (pinCode.length == 4) {
                 if (pinCode.toString() == pin1) {
-                    val intent = Intent(this, Pin3Activity::class.java)
-                    intent.putExtra("pin", pin1)
+                    // Save PIN
+                    userManager.setPin(pin1)
+                    
+                    // Mark user as logged in
+                    val username = userManager.getUsername()
+                    userManager.setLoggedIn(username)
+                    
+                    Toast.makeText(this, "PIN set successfully!", Toast.LENGTH_SHORT).show()
+                    
+                    // Go to Budget Setup
+                    val intent = Intent(this, SetupPlan1Activity::class.java)
+                    intent.putExtra("from_registration", true)
                     startActivity(intent)
-                    finish()
+                    finishAffinity()
                 } else {
-                    Toast.makeText(this, "PINs do not match", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "PINs do not match. Try again.", Toast.LENGTH_SHORT).show()
                     pinCode.setLength(0)
                     updateDisplay()
                 }
@@ -76,6 +99,12 @@ class Pin2Activity : AppCompatActivity() {
 
     private fun updateDisplay() {
         for (i in 0..3) {
+            if (i < pinCode.length) {
+                pinDots[i].setBackgroundResource(R.drawable.pin_dot_filled)
+            } else {
+                pinDots[i].setBackgroundResource(R.drawable.pin_dot_empty)
+            }
+            // Keep pinBoxes updated for compatibility
             pinBoxes[i].text = if (i < pinCode.length) "●" else ""
         }
     }

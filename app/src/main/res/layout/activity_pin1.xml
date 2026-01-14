@@ -8,16 +8,19 @@
     <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@color/primary_green"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_blue"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        android:paddingBottom="40dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/logo_spendsense"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@string/app_name"
+            android:layout_marginBottom="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,251 +28,252 @@
             android:text="@string/app_name"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/dark_bg" />
+            android:textColor="@color/white"
+            android:letterSpacing="0.05" />
     </LinearLayout>
 
     <!-- PIN Input Section -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="30dp">
+        android:paddingHorizontal="40dp">
+
+        <!-- Lock Icon -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔐"
+            android:textSize="40sp"
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_pin"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_marginBottom="40dp" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-        <!-- PIN Box Display -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create a 4-digit PIN for security"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:layout_marginBottom="32dp" />
+
+        <!-- PIN Dots Display -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="40dp">
 
-            <TextView
-                android:id="@+id/pinBox1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/pin_box_background"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
-                android:layout_marginEnd="15dp" />
+            <View
+                android:id="@+id/pinDot1"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/pin_dot_empty"
+                android:layout_marginEnd="20dp" />
 
-            <TextView
-                android:id="@+id/pinBox2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/pin_box_background"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
-                android:layout_marginEnd="15dp" />
+            <View
+                android:id="@+id/pinDot2"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/pin_dot_empty"
+                android:layout_marginEnd="20dp" />
 
-            <TextView
-                android:id="@+id/pinBox3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/pin_box_background"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
-                android:layout_marginEnd="15dp" />
+            <View
+                android:id="@+id/pinDot3"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/pin_dot_empty"
+                android:layout_marginEnd="20dp" />
 
-            <TextView
-                android:id="@+id/pinBox4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/pin_box_background"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg" />
+            <View
+                android:id="@+id/pinDot4"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/pin_dot_empty" />
         </LinearLayout>
 
-        <!-- Number Pad Grid -->
-        <!-- Row 1: 1 2 3 -->
+        <!-- Hidden PIN boxes for compatibility -->
+        <TextView android:id="@+id/pinBox1" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+        <TextView android:id="@+id/pinBox2" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+        <TextView android:id="@+id/pinBox3" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+        <TextView android:id="@+id/pinBox4" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+
+        <!-- Number Pad - Row 1 -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center">
 
             <Button
                 android:id="@+id/num1"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="1"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background"
-                android:layout_marginEnd="10dp" />
+                android:background="@drawable/numpad_button_background"
+                android:layout_marginEnd="25dp" />
 
             <Button
                 android:id="@+id/num2"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="2"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background"
-                android:layout_marginEnd="10dp" />
+                android:background="@drawable/numpad_button_background"
+                android:layout_marginEnd="25dp" />
 
             <Button
                 android:id="@+id/num3"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="3"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background" />
+                android:background="@drawable/numpad_button_background" />
         </LinearLayout>
 
-        <!-- Row 2: 4 5 6 -->
+        <!-- Number Pad - Row 2 -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center">
 
             <Button
                 android:id="@+id/num4"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="4"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background"
-                android:layout_marginEnd="10dp" />
+                android:background="@drawable/numpad_button_background"
+                android:layout_marginEnd="25dp" />
 
             <Button
                 android:id="@+id/num5"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="5"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background"
-                android:layout_marginEnd="10dp" />
+                android:background="@drawable/numpad_button_background"
+                android:layout_marginEnd="25dp" />
 
             <Button
                 android:id="@+id/num6"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="6"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background" />
+                android:background="@drawable/numpad_button_background" />
         </LinearLayout>
 
-        <!-- Row 3: 7 8 9 -->
+        <!-- Number Pad - Row 3 -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center">
 
             <Button
                 android:id="@+id/num7"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="7"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background"
-                android:layout_marginEnd="10dp" />
+                android:background="@drawable/numpad_button_background"
+                android:layout_marginEnd="25dp" />
 
             <Button
                 android:id="@+id/num8"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="8"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background"
-                android:layout_marginEnd="10dp" />
+                android:background="@drawable/numpad_button_background"
+                android:layout_marginEnd="25dp" />
 
             <Button
                 android:id="@+id/num9"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="9"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background" />
+                android:background="@drawable/numpad_button_background" />
         </LinearLayout>
 
-        <!-- Row 4: 0 and Backspace -->
+        <!-- Number Pad - Row 4 -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="30dp"
             android:gravity="center">
 
             <Space
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1" />
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="25dp" />
 
             <Button
                 android:id="@+id/num0"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="0"
-                android:textSize="24sp"
-                android:textColor="@color/dark_bg"
+                android:textSize="26sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/number_button_background"
-                android:layout_marginEnd="10dp" />
+                android:background="@drawable/numpad_button_background"
+                android:layout_marginEnd="25dp" />
 
             <Button
                 android:id="@+id/backspace"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:text="DEL"
-                android:textSize="18sp"
-                android:textColor="@color/dark_bg"
-                android:textStyle="bold"
-                android:background="@drawable/number_button_background" />
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="⌫"
+                android:textSize="24sp"
+                android:textColor="@color/text_secondary"
+                android:background="@drawable/numpad_delete_background" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Continue Button - THIS IS THE IMPORTANT PART -->
+    <!-- Continue Button -->
     <Button
         android:id="@+id/continueBtn"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="54dp"
         android:text="@string/continue_btn"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:textSize="16sp"
         android:background="@drawable/button_background"
-        android:layout_margin="30dp" />
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="30dp" />
 </LinearLayout>

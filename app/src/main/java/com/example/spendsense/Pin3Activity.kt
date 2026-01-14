@@ -2,6 +2,7 @@ package com.example.spendsense
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import android.widget.TextView
@@ -11,6 +12,7 @@ class Pin3Activity : AppCompatActivity() {
     private var pinCode = StringBuilder()
     private lateinit var pin: String
     private lateinit var userManager: UserManager
+    private lateinit var pinDots: Array<View>
     private lateinit var pinBoxes: Array<TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +22,15 @@ class Pin3Activity : AppCompatActivity() {
         userManager = UserManager(this)
         pin = intent.getStringExtra("pin") ?: ""
 
+        // New dot-based UI
+        pinDots = arrayOf(
+            findViewById(R.id.pinDot1),
+            findViewById(R.id.pinDot2),
+            findViewById(R.id.pinDot3),
+            findViewById(R.id.pinDot4)
+        )
+
+        // Keep pinBoxes for backward compatibility (hidden in layout)
         pinBoxes = arrayOf(
             findViewById(R.id.pinBox1),
             findViewById(R.id.pinBox2),
@@ -41,9 +52,8 @@ class Pin3Activity : AppCompatActivity() {
 
                 Toast.makeText(this, "PIN set successfully!", Toast.LENGTH_SHORT).show()
 
-                // Go directly to Dashboard (no repetitive PIN dialog)
+                // Go directly to Dashboard
                 val dashboardIntent = Intent(this, DashboardActivity::class.java)
-                dashboardIntent.putExtra("from_login", true) // Flag to skip PIN on first entry
                 startActivity(dashboardIntent)
                 finishAffinity() // Close all previous activities
             } else {
@@ -84,6 +94,12 @@ class Pin3Activity : AppCompatActivity() {
 
     private fun updateDisplay() {
         for (i in 0..3) {
+            if (i < pinCode.length) {
+                pinDots[i].setBackgroundResource(R.drawable.pin_dot_filled)
+            } else {
+                pinDots[i].setBackgroundResource(R.drawable.pin_dot_empty)
+            }
+            // Keep pinBoxes updated for compatibility
             pinBoxes[i].text = if (i < pinCode.length) "●" else ""
         }
     }
