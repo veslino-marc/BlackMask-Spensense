@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How many days should your budget cycle last?"
+        android:textColor="#4A5568"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/input_background"
+        android:paddingHorizontal="16dp">
+
+        <EditText
+            android:id="@+id/customDaysInput"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Enter number"
+            android:inputType="number"
+            android:textColor="#000000"
+            android:textColorHint="#8A9BAE"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:maxLength="3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="days"
+            android:textColor="#1E3A5F"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="💡 Examples: 10 days, 21 days, 45 days"
+        android:textColor="#5A6978"
+        android:textSize="12sp"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>

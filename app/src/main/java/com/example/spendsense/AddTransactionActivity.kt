@@ -24,12 +24,12 @@ class AddTransactionActivity : AppCompatActivity() {
     // Expense categories
     private val expenseCategories = listOf(
         Pair("🍔", "Food"),
-        Pair("🚗", "Transport"),
-        Pair("🛒", "Shopping"),
-        Pair("🎮", "Entertainment"),
+        Pair("🚗", "Travel"),
+        Pair("🛒", "Shop"),
+        Pair("🎮", "Fun"),
         Pair("💡", "Bills"),
         Pair("💊", "Health"),
-        Pair("📚", "Education"),
+        Pair("📚", "Study"),
         Pair("📦", "Other")
     )
     
@@ -40,7 +40,7 @@ class AddTransactionActivity : AppCompatActivity() {
         Pair("💼", "Freelance"),
         Pair("🎀", "Gift"),
         Pair("💳", "Refund"),
-        Pair("📈", "Investment"),
+        Pair("📈", "Invest"),
         Pair("🏦", "Savings"),
         Pair("📦", "Other")
     )
@@ -194,6 +194,12 @@ class AddTransactionActivity : AppCompatActivity() {
 
         if (selectedCategory.isEmpty()) {
             Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Check if user has budget set up for expenses
+        if (isExpense && !budgetManager.hasBudget()) {
+            Toast.makeText(this, "Please create a budget plan first", Toast.LENGTH_SHORT).show()
             return
         }
 

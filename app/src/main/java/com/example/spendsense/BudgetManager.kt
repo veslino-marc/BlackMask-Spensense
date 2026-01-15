@@ -10,6 +10,7 @@ class BudgetManager(context: Context) {
     companion object {
         private const val KEY_HAS_BUDGET = "has_budget"
         private const val KEY_SCHEDULE = "schedule"
+        private const val KEY_CUSTOM_DAYS = "custom_days"
         private const val KEY_TOTAL_BUDGET = "total_budget"
         private const val KEY_NEEDS = "needs"
         private const val KEY_SAVINGS = "savings"
@@ -17,10 +18,11 @@ class BudgetManager(context: Context) {
         private const val KEY_SPENT = "spent"
     }
 
-    fun saveBudget(schedule: String, totalBudget: Double, needs: Double, savings: Double, wants: Double) {
+    fun saveBudget(schedule: String, totalBudget: Double, needs: Double, savings: Double, wants: Double, customDays: Int = 0) {
         prefs.edit().apply {
             putBoolean(KEY_HAS_BUDGET, true)
             putString(KEY_SCHEDULE, schedule)
+            putInt(KEY_CUSTOM_DAYS, customDays)
             putFloat(KEY_TOTAL_BUDGET, totalBudget.toFloat())
             putFloat(KEY_NEEDS, needs.toFloat())
             putFloat(KEY_SAVINGS, savings.toFloat())
@@ -36,6 +38,10 @@ class BudgetManager(context: Context) {
 
     fun getSchedule(): String {
         return prefs.getString(KEY_SCHEDULE, "Monthly") ?: "Monthly"
+    }
+
+    fun getCustomDays(): Int {
+        return prefs.getInt(KEY_CUSTOM_DAYS, 0)
     }
 
     fun getTotalBudget(): Double {

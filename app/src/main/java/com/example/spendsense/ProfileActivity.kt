@@ -2,7 +2,9 @@ package com.example.spendsense
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -30,10 +32,17 @@ class ProfileActivity : AppCompatActivity() {
         loadBudgetData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadUserData()
+        loadBudgetData()
+    }
+
     private fun setupViews() {
         val backBtn: ImageView = findViewById(R.id.backBtn)
         val editProfileBtn: LinearLayout = findViewById(R.id.editProfileBtn)
         val changePinBtn: LinearLayout = findViewById(R.id.changePinBtn)
+        val changePasswordBtn: LinearLayout = findViewById(R.id.changePasswordBtn)
         val resetBudgetBtn: LinearLayout = findViewById(R.id.resetBudgetBtn)
         val aboutBtn: LinearLayout = findViewById(R.id.aboutBtn)
         val logoutBtn: Button = findViewById(R.id.logoutBtn)
@@ -41,11 +50,15 @@ class ProfileActivity : AppCompatActivity() {
         backBtn.setOnClickListener { finish() }
 
         editProfileBtn.setOnClickListener {
-            Toast.makeText(this, "Edit Profile - Coming Soon", Toast.LENGTH_SHORT).show()
+            showEditProfileDialog()
         }
 
         changePinBtn.setOnClickListener {
             showChangePinDialog()
+        }
+
+        changePasswordBtn.setOnClickListener {
+            showChangePasswordDialog()
         }
 
         resetBudgetBtn.setOnClickListener {
@@ -101,14 +114,90 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun showEditProfileDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_profile, null)
+        val usernameInput = dialogView.findViewById<EditText>(R.id.editUsername)
+        val emailInput = dialogView.findViewById<EditText>(R.id.editEmail)
+
+        // Pre-fill current values
+        usernameInput.setText(userManager.getUsername())
+        emailInput.setText(userManager.getEmail())
+
+        AlertDialog.Builder(this)
+            .setTitle("Edit Profile")
+            .setView(dialogView)
+            .setPositiveButton("Save") { _, _ ->
+                val newUsername = usernameInput.text.toString().trim()
+                val newEmail = emailInput.text.toString().trim()
+
+                if (newUsername.isEmpty()) {
+                    Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                if (newEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(newEmail).matches()) {
+                    Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                // Update user data
+                userManager.updateProfile(newUsername, newEmail)
+                loadUserData()
+                Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
     private fun showChangePinDialog() {
         AlertDialog.Builder(this)
             .setTitle("Change PIN")
             .setMessage("You will be redirected to create a new PIN. Continue?")
             .setPositiveButton("Yes") { _, _ ->
-                // Clear current PIN and redirect to PIN setup
+                // Redirect to PIN setup with flag indicating it's just a PIN change
                 val intent = Intent(this, Pin1Activity::class.java)
+                intent.putExtra("change_pin_only", true)
                 startActivity(intent)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showChangePasswordDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_change_password, null)
+        val currentPasswordInput = dialogView.findViewById<EditText>(R.id.currentPassword)
+        val newPasswordInput = dialogView.findViewById<EditText>(R.id.newPassword)
+        val confirmPasswordInput = dialogView.findViewById<EditText>(R.id.confirmNewPassword)
+
+        AlertDialog.Builder(this)
+            .setTitle("Change Password")
+            .setView(dialogView)
+            .setPositiveButton("Change") { _, _ ->
+                val currentPassword = currentPasswordInput.text.toString()
+                val newPassword = newPasswordInput.text.toString()
+                val confirmPassword = confirmPasswordInput.text.toString()
+
+                when {
+                    currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty() -> {
+                        Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                    }
+                    currentPassword != userManager.getPassword() -> {
+                        Toast.makeText(this, "Current password is incorrect", Toast.LENGTH_SHORT).show()
+                    }
+                    newPassword.length < 6 -> {
+                        Toast.makeText(this, "New password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                    }
+                    newPassword != confirmPassword -> {
+                        Toast.makeText(this, "New passwords do not match", Toast.LENGTH_SHORT).show()
+                    }
+                    newPassword == currentPassword -> {
+                        Toast.makeText(this, "New password must be different from current", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        userManager.updatePassword(newPassword)
+                        Toast.makeText(this, "Password changed successfully", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
             .setNegativeButton("Cancel", null)
             .show()
@@ -139,7 +228,7 @@ class ProfileActivity : AppCompatActivity() {
                 "SpendSense v1.0.0\n\n" +
                 "Your personal finance companion.\n\n" +
                 "Track your expenses, manage your budget, and take control of your financial future.\n\n" +
-                "© 2024 SpendSense"
+                "© 2026 SpendSense"
             )
             .setPositiveButton("OK", null)
             .show()

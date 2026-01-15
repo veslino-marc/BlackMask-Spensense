@@ -1,6 +1,7 @@
 package com.example.spendsense
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,17 +15,23 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity() { 
 
     private lateinit var userManager: UserManager
     private lateinit var onboardingManager: OnboardingManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)  
         setContentView(R.layout.activity_splash)
 
         userManager = UserManager(this)
         onboardingManager = OnboardingManager(this)
+
+        // Force set text colors programmatically to ensure visibility
+        val appName: TextView = findViewById(R.id.appName)
+        val tagline: TextView = findViewById(R.id.tagline)
+        appName.setTextColor(Color.parseColor("#0D2137"))
+        tagline.setTextColor(Color.parseColor("#1E3A5F"))
 
         // Animate logo
         val logoContainer: LinearLayout = findViewById(R.id.logoContainer)

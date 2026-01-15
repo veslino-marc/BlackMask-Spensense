@@ -9,10 +9,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_blue"
+        android:background="@drawable/gradient_header"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:elevation="6dp">
 
         <ImageView
             android:id="@+id/backBtn"
@@ -94,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Budget Breakdown"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_blue"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
@@ -129,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="₱0.00"
-                    android:textColor="@color/white"
+                    android:textColor="@color/primary_blue"
                     android:textSize="32sp"
                     android:textStyle="bold"
                     android:layout_marginTop="4dp" />
@@ -177,7 +178,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Needs"
-                            android:textColor="@color/white"
+                            android:textColor="@color/primary_blue"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -190,6 +191,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/needsPercent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="50%"
@@ -210,7 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₱"
-                        android:textColor="@color/text_on_light"
+                        android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -222,11 +224,12 @@
                         android:background="@android:color/transparent"
                         android:hint="0.00"
                         android:inputType="numberDecimal"
-                        android:textColor="@color/text_on_light"
+                        android:textColor="#000000"
                         android:textColorHint="@color/placeholder"
                         android:textSize="18sp"
                         android:gravity="end|center_vertical"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:cursorVisible="true" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -263,7 +266,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Savings"
-                            android:textColor="@color/white"
+                            android:textColor="@color/primary_blue"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -276,6 +279,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/savingsPercent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20%"
@@ -296,7 +300,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₱"
-                        android:textColor="@color/text_on_light"
+                        android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -308,11 +312,12 @@
                         android:background="@android:color/transparent"
                         android:hint="0.00"
                         android:inputType="numberDecimal"
-                        android:textColor="@color/text_on_light"
+                        android:textColor="#000000"
                         android:textColorHint="@color/placeholder"
                         android:textSize="18sp"
                         android:gravity="end|center_vertical"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:cursorVisible="true" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -348,7 +353,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Wants"
-                            android:textColor="@color/white"
+                            android:textColor="@color/primary_blue"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -361,6 +366,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/wantsPercent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="30%"
@@ -381,7 +387,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₱"
-                        android:textColor="@color/text_on_light"
+                        android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -393,11 +399,12 @@
                         android:background="@android:color/transparent"
                         android:hint="0.00"
                         android:inputType="numberDecimal"
-                        android:textColor="@color/text_on_light"
+                        android:textColor="#000000"
                         android:textColorHint="@color/placeholder"
                         android:textSize="18sp"
                         android:gravity="end|center_vertical"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:cursorVisible="true" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

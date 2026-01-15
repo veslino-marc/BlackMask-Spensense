@@ -14,6 +14,7 @@ class Pin2Activity : AppCompatActivity() {
     private lateinit var userManager: UserManager
     private lateinit var pinDots: Array<View>
     private lateinit var pinBoxes: Array<TextView>
+    private var changePinOnly = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,7 @@ class Pin2Activity : AppCompatActivity() {
 
         userManager = UserManager(this)
         pin1 = intent.getStringExtra("pin1") ?: ""
+        changePinOnly = intent.getBooleanExtra("change_pin_only", false)
 
         // New dot-based UI
         pinDots = arrayOf(
@@ -45,17 +47,21 @@ class Pin2Activity : AppCompatActivity() {
                     // Save PIN
                     userManager.setPin(pin1)
                     
-                    // Mark user as logged in
-                    val username = userManager.getUsername()
-                    userManager.setLoggedIn(username)
-                    
                     Toast.makeText(this, "PIN set successfully!", Toast.LENGTH_SHORT).show()
                     
-                    // Go to Budget Setup
-                    val intent = Intent(this, SetupPlan1Activity::class.java)
-                    intent.putExtra("from_registration", true)
-                    startActivity(intent)
-                    finishAffinity()
+                    if (changePinOnly) {
+                        // Just changing PIN from Profile - go back to Dashboard
+                        finish()
+                    } else {
+                        // New registration - mark user as logged in and go to Budget Setup
+                        val username = userManager.getUsername()
+                        userManager.setLoggedIn(username)
+                        
+                        val intent = Intent(this, SetupPlan1Activity::class.java)
+                        intent.putExtra("from_registration", true)
+                        startActivity(intent)
+                        finishAffinity()
+                    }
                 } else {
                     Toast.makeText(this, "PINs do not match. Try again.", Toast.LENGTH_SHORT).show()
                     pinCode.setLength(0)

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 class SetupPlan2Activity : AppCompatActivity() {
     
     private lateinit var schedule: String
+    private var customDays: Int = 0
     private var fromRegistration: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +20,7 @@ class SetupPlan2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_setup_plan2)
 
         schedule = intent.getStringExtra("schedule") ?: "Monthly"
+        customDays = intent.getIntExtra("custom_days", 0)
         fromRegistration = intent.getBooleanExtra("from_registration", false)
 
         val backBtn: ImageView = findViewById(R.id.backBtn)
@@ -51,6 +53,7 @@ class SetupPlan2Activity : AppCompatActivity() {
 
             val intent = Intent(this, SetupPlan3Activity::class.java)
             intent.putExtra("schedule", schedule)
+            intent.putExtra("custom_days", customDays)
             intent.putExtra("budget", budget)
             intent.putExtra("from_registration", fromRegistration)
             startActivity(intent)

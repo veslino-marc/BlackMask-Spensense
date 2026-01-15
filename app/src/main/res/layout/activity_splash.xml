@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/dark_bg">
+    android:background="#FFFFFF">
 
     <!-- Logo Container with Animation -->
     <LinearLayout
@@ -18,7 +18,7 @@
             android:id="@+id/splashLogo"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:src="@drawable/logo_spendsense"
+            android:src="@mipmap/logo"
             android:contentDescription="SpendSense Logo" />
 
         <TextView
@@ -26,9 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SpendSense"
-            android:textSize="32sp"
+            android:textSize="36sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="#0D2137"
             android:layout_marginTop="20dp" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="Smart Money Management"
             android:textSize="16sp"
-            android:textColor="@color/accent_blue"
+            android:textColor="#1E3A5F"
             android:layout_marginTop="8dp" />
     </LinearLayout>
 
@@ -47,6 +47,6 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="60dp"
-        android:indeterminateTint="@color/accent_blue" />
+        android:indeterminateTint="#1E3A5F" />
 
 </LinearLayout>

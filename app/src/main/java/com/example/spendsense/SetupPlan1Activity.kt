@@ -2,16 +2,20 @@ package com.example.spendsense
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 class SetupPlan1Activity : AppCompatActivity() {
     
     private var selectedSchedule: String = ""
+    private var customDays: Int = 0
     private var fromRegistration: Boolean = false
     
     private lateinit var optionWeekly: LinearLayout
@@ -60,7 +64,7 @@ class SetupPlan1Activity : AppCompatActivity() {
         optionWeekly.setOnClickListener { selectSchedule("Weekly") }
         optionBiWeekly.setOnClickListener { selectSchedule("Bi-Weekly") }
         optionMonthly.setOnClickListener { selectSchedule("Monthly") }
-        optionCustom.setOnClickListener { selectSchedule("Custom") }
+        optionCustom.setOnClickListener { showCustomDaysDialog() }
 
         // Next button
         nextBtn.setOnClickListener {
@@ -69,15 +73,48 @@ class SetupPlan1Activity : AppCompatActivity() {
             } else {
                 val intent = Intent(this, SetupPlan2Activity::class.java)
                 intent.putExtra("schedule", selectedSchedule)
+                intent.putExtra("custom_days", customDays)
                 intent.putExtra("from_registration", fromRegistration)
                 startActivity(intent)
             }
         }
     }
 
+    private fun showCustomDaysDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_custom_days, null)
+        val daysInput = dialogView.findViewById<EditText>(R.id.customDaysInput)
+
+        // Pre-fill if already set
+        if (customDays > 0) {
+            daysInput.setText(customDays.toString())
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Custom Schedule")
+            .setView(dialogView)
+            .setPositiveButton("Set") { _, _ ->
+                val daysText = daysInput.text.toString()
+                val days = daysText.toIntOrNull()
+
+                if (days == null || days < 1 || days > 365) {
+                    Toast.makeText(this, "Please enter a valid number (1-365 days)", Toast.LENGTH_SHORT).show()
+                } else {
+                    customDays = days
+                    selectedSchedule = "Custom ($days days)"
+                    selectScheduleUI("Custom")
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
     private fun selectSchedule(schedule: String) {
+        customDays = 0 // Reset custom days when selecting preset
         selectedSchedule = schedule
-        
+        selectScheduleUI(schedule)
+    }
+
+    private fun selectScheduleUI(schedule: String) {
         // Reset all options
         optionWeekly.setBackgroundResource(R.drawable.schedule_option_unselected)
         optionBiWeekly.setBackgroundResource(R.drawable.schedule_option_unselected)

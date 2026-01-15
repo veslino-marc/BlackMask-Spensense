@@ -262,7 +262,7 @@ class RecordActivity : AppCompatActivity() {
         val categoryText = TextView(this).apply {
             text = transaction.category
             textSize = 15f
-            setTextColor(Color.WHITE)
+            setTextColor(Color.parseColor("#1E3A5F"))
             typeface = android.graphics.Typeface.DEFAULT_BOLD
         }
         detailsContainer.addView(categoryText)
@@ -270,7 +270,7 @@ class RecordActivity : AppCompatActivity() {
         val timeText = TextView(this).apply {
             text = formatTime(transaction.timestamp)
             textSize = 12f
-            setTextColor(Color.parseColor("#B8C5D6"))
+            setTextColor(Color.parseColor("#5A6978"))
         }
         detailsContainer.addView(timeText)
 
@@ -278,7 +278,7 @@ class RecordActivity : AppCompatActivity() {
             val noteText = TextView(this).apply {
                 text = transaction.note
                 textSize = 12f
-                setTextColor(Color.parseColor("#8A9BAE"))
+                setTextColor(Color.parseColor("#5A6978"))
                 maxLines = 1
                 ellipsize = android.text.TextUtils.TruncateAt.END
             }

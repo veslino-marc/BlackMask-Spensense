@@ -26,12 +26,12 @@ class TrackActivity : AppCompatActivity() {
     // Category colors for the bars
     private val categoryColors = mapOf(
         "Food" to "#FF6B6B",
-        "Transport" to "#4ECDC4",
-        "Shopping" to "#45B7D1",
-        "Entertainment" to "#96CEB4",
+        "Travel" to "#4ECDC4",
+        "Shop" to "#45B7D1",
+        "Fun" to "#96CEB4",
         "Bills" to "#FFEAA7",
         "Health" to "#DDA0DD",
-        "Education" to "#98D8C8",
+        "Study" to "#98D8C8",
         "Other" to "#B8C5D6"
     )
 

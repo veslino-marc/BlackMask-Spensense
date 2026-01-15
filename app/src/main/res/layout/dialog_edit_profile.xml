@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Username Field -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="👤  Username"
+        android:textColor="#4A5568"
+        android:textSize="13sp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/editUsername"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/input_background"
+        android:hint="Enter your name"
+        android:textColor="#000000"
+        android:textColorHint="#8A9BAE"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="15sp"
+        android:inputType="textPersonName" />
+
+    <!-- Email Field -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📧  Email"
+        android:textColor="#4A5568"
+        android:textSize="13sp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/input_background"
+        android:hint="your@email.com"
+        android:inputType="textEmailAddress"
+        android:textColor="#000000"
+        android:textColorHint="#8A9BAE"
+        android:paddingHorizontal="16dp"
+        android:textSize="15sp" />
+
+</LinearLayout>

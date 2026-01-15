@@ -23,6 +23,19 @@ class UserManager(context: Context) {
             .apply()
     }
 
+    fun updateProfile(username: String, email: String) {
+        prefs.edit()
+            .putString(KEY_USERNAME, username)
+            .putString(KEY_EMAIL, email)
+            .apply()
+    }
+
+    fun updatePassword(newPassword: String) {
+        prefs.edit()
+            .putString(KEY_PASSWORD, newPassword)
+            .apply()
+    }
+
     fun setPin(pin: String) {
         prefs.edit().putString(KEY_PIN, pin).apply()
     }

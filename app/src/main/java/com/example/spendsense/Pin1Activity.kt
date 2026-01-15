@@ -13,12 +13,14 @@ class Pin1Activity : AppCompatActivity() {
     private lateinit var userManager: UserManager
     private lateinit var pinDots: Array<View>
     private lateinit var pinBoxes: Array<TextView>
+    private var changePinOnly = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin1)
 
         userManager = UserManager(this)
+        changePinOnly = intent.getBooleanExtra("change_pin_only", false)
 
         // New dot-based UI
         pinDots = arrayOf(
@@ -41,6 +43,7 @@ class Pin1Activity : AppCompatActivity() {
             if (pinCode.length == 4) {
                 val intent = Intent(this, Pin2Activity::class.java)
                 intent.putExtra("pin1", pinCode.toString())
+                intent.putExtra("change_pin_only", changePinOnly)
                 startActivity(intent)
                 finish()
             } else {

@@ -16,6 +16,7 @@ import java.util.Locale
 class SetupPlan3Activity : AppCompatActivity() {
     
     private lateinit var schedule: String
+    private var customDays: Int = 0
     private var totalBudget: Double = 0.0
     private var fromRegistration: Boolean = false
     
@@ -24,6 +25,9 @@ class SetupPlan3Activity : AppCompatActivity() {
     private lateinit var needsInput: EditText
     private lateinit var savingsInput: EditText
     private lateinit var wantsInput: EditText
+    private lateinit var needsPercent: TextView
+    private lateinit var savingsPercent: TextView
+    private lateinit var wantsPercent: TextView
     private lateinit var budgetManager: BudgetManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +35,7 @@ class SetupPlan3Activity : AppCompatActivity() {
         setContentView(R.layout.activity_setup_plan3)
 
         schedule = intent.getStringExtra("schedule") ?: "Monthly"
+        customDays = intent.getIntExtra("custom_days", 0)
         totalBudget = intent.getDoubleExtra("budget", 0.0)
         fromRegistration = intent.getBooleanExtra("from_registration", false)
         
@@ -46,6 +51,9 @@ class SetupPlan3Activity : AppCompatActivity() {
         needsInput = findViewById(R.id.needsInput)
         savingsInput = findViewById(R.id.savingsInput)
         wantsInput = findViewById(R.id.wantsInput)
+        needsPercent = findViewById(R.id.needsPercent)
+        savingsPercent = findViewById(R.id.savingsPercent)
+        wantsPercent = findViewById(R.id.wantsPercent)
 
         // Display total budget
         totalBudgetDisplay.text = formatCurrency(totalBudget)
@@ -61,7 +69,7 @@ class SetupPlan3Activity : AppCompatActivity() {
         wantsInput.setText(String.format("%.2f", suggestedWants))
         updateRemaining()
 
-        // Add text watchers to update remaining
+        // Add text watchers to update remaining and percentages
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -95,7 +103,7 @@ class SetupPlan3Activity : AppCompatActivity() {
             }
 
             // Save budget data
-            budgetManager.saveBudget(schedule, totalBudget, needs, savings, wants)
+            budgetManager.saveBudget(schedule, totalBudget, needs, savings, wants, customDays)
             
             Toast.makeText(this, "Budget plan created! 🎉", Toast.LENGTH_SHORT).show()
 
@@ -123,6 +131,21 @@ class SetupPlan3Activity : AppCompatActivity() {
             remainingDisplay.setTextColor(resources.getColor(R.color.income_green, null))
         } else {
             remainingDisplay.setTextColor(resources.getColor(R.color.accent_blue, null))
+        }
+        
+        // Update percentages dynamically based on total budget
+        if (totalBudget > 0) {
+            val needsPercentValue = ((needs / totalBudget) * 100).toInt()
+            val savingsPercentValue = ((savings / totalBudget) * 100).toInt()
+            val wantsPercentValue = ((wants / totalBudget) * 100).toInt()
+            
+            needsPercent.text = "$needsPercentValue%"
+            savingsPercent.text = "$savingsPercentValue%"
+            wantsPercent.text = "$wantsPercentValue%"
+        } else {
+            needsPercent.text = "0%"
+            savingsPercent.text = "0%"
+            wantsPercent.text = "0%"
         }
     }
 

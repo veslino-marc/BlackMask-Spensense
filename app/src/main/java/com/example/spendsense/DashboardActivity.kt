@@ -79,6 +79,12 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
+        // See All button for recent transactions
+        val seeAllBtn: TextView = findViewById(R.id.seeAllBtn)
+        seeAllBtn.setOnClickListener {
+            startActivity(Intent(this, RecordActivity::class.java))
+        }
+
         // Update displays
         updateBudgetDisplay()
         updateRecentTransactions()
@@ -88,6 +94,15 @@ class DashboardActivity : AppCompatActivity() {
         super.onResume()
         updateBudgetDisplay()
         updateRecentTransactions()
+        updateUserDisplay()
+    }
+
+    private fun updateUserDisplay() {
+        val greeting: TextView = findViewById(R.id.greeting)
+        val username: TextView = findViewById(R.id.username)
+        
+        greeting.text = getGreeting()
+        username.text = userManager.getUsername()
     }
 
     private fun updateBudgetDisplay() {
@@ -105,30 +120,49 @@ class DashboardActivity : AppCompatActivity() {
             
             val total = budgetManager.getTotalBudget()
             val spent = budgetManager.getSpent()
-            val percentage = budgetManager.getUsagePercentage()
+            val remaining = budgetManager.getRemaining()
+            val spentPercentage = budgetManager.getUsagePercentage()
 
-            budgetAmountText?.text = "${formatCurrency(spent)} / ${formatCurrency(total)}"
-            budgetPercentText?.text = "$percentage%"
+            // Show remaining amount
+            budgetAmountText?.text = "${formatCurrency(remaining)} left of ${formatCurrency(total)}"
+            budgetPercentText?.text = "$spentPercentage% used"
 
-            // Update progress bar width
+            // Update progress bar - bar shows SPENT percentage
+            // Starts EMPTY (small), GROWS as you spend more
             budgetProgressBar?.let { bar ->
                 val params = bar.layoutParams as? LinearLayout.LayoutParams
-                params?.weight = percentage / 100f
+                // Use spent percentage as weight (out of 100 weightSum)
+                // Minimum 2 for visibility, max 100
+                val barWeight = spentPercentage.coerceIn(2, 100).toFloat()
+                params?.weight = barWeight
                 bar.layoutParams = params
+                
+                // Color based on how much SPENT
+                // Low spent = green, high spent = red
+                val progressColor = when {
+                    spentPercentage >= 80 -> Color.parseColor("#EF5350") // Red - danger (spent a lot)
+                    spentPercentage >= 50 -> Color.parseColor("#FFB74D") // Orange - warning
+                    else -> Color.parseColor("#4CAF50") // Green - safe (spent little)
+                }
+                bar.setBackgroundColor(progressColor)
+                
+                // Also update percentage text color to match
+                budgetPercentText?.setTextColor(progressColor)
             }
 
             // Update create budget button text
             createBudgetBtn.text = "Edit Budget Plan"
 
-            // Show/hide alert based on usage
-            if (percentage >= 80) {
+            // Show/hide alert based on spent (alert when spent a lot)
+            if (spentPercentage >= 80) {
                 alertCard?.visibility = View.VISIBLE
-                alertText?.text = "You've used $percentage% of your ${budgetManager.getSchedule().lowercase()} budget"
+                alertText?.text = "⚠️ You've used $spentPercentage% of your ${budgetManager.getSchedule().lowercase()} budget!"
             } else {
                 alertCard?.visibility = View.GONE
             }
         } else {
             // Hide budget status if no budget set
+            budgetStatusCard?.visibility = View.GONE
             alertCard?.visibility = View.GONE
             createBudgetBtn.text = "Create a budget plan"
         }
@@ -201,7 +235,7 @@ class DashboardActivity : AppCompatActivity() {
         val categoryText = TextView(this).apply {
             text = transaction.category
             textSize = 15f
-            setTextColor(Color.WHITE)
+            setTextColor(Color.parseColor("#1E3A5F"))
             typeface = android.graphics.Typeface.DEFAULT_BOLD
         }
         detailsContainer.addView(categoryText)
@@ -209,7 +243,7 @@ class DashboardActivity : AppCompatActivity() {
         val timeText = TextView(this).apply {
             text = formatTime(transaction.timestamp)
             textSize = 12f
-            setTextColor(Color.parseColor("#B8C5D6"))
+            setTextColor(Color.parseColor("#5A6978"))
         }
         detailsContainer.addView(timeText)
 
@@ -292,25 +326,4 @@ class DashboardActivity : AppCompatActivity() {
         navRecord.setColorFilter(Color.parseColor("#8A9BAE"))
     }
 
-    override fun onBackPressed() {
-        showLogoutDialog()
-    }
-
-    private fun showLogoutDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Logout")
-        builder.setMessage("Do you want to logout?")
-
-        builder.setPositiveButton("Yes") { dialog, which ->
-            userManager.logout()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
-
-        builder.setNegativeButton("No") { dialog, which ->
-            dialog.dismiss()
-        }
-
-        builder.show()
-    }
 }

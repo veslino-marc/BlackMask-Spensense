@@ -6,39 +6,39 @@
     <color name="primary_blue_light">#2D5A8A</color>
     <color name="accent_blue">#5B8DBE</color>
     
-    <!-- Background Colors -->
-    <color name="dark_bg">#0F1C2E</color>
-    <color name="card_bg">#1A2F4A</color>
-    <color name="surface_bg">#243B55</color>
+    <!-- Background Colors - LIGHT THEME -->
+    <color name="dark_bg">#F5F7FA</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="surface_bg">#E8ECF0</color>
     
     <!-- Input & Interactive -->
-    <color name="input_field">#F5F7FA</color>
+    <color name="input_field">#FFFFFF</color>
     <color name="input_field_focused">#FFFFFF</color>
     <color name="placeholder">#8A9BAE</color>
     
     <!-- Buttons -->
-    <color name="button_primary">#5B8DBE</color>
-    <color name="button_primary_pressed">#4A7CAD</color>
-    <color name="button_secondary">#2D5A8A</color>
+    <color name="button_primary">#1E3A5F</color>
+    <color name="button_primary_pressed">#152A47</color>
+    <color name="button_secondary">#5B8DBE</color>
     
-    <!-- Text Colors -->
-    <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#B8C5D6</color>
+    <!-- Text Colors - LIGHT THEME -->
+    <color name="text_primary">#1E3A5F</color>
+    <color name="text_secondary">#4A5568</color>
     <color name="text_on_light">#1E3A5F</color>
-    <color name="link_blue">#7EB3E0</color>
+    <color name="link_blue">#2D5A8A</color>
     
     <!-- Status Colors -->
     <color name="success">#4CAF50</color>
     <color name="warning">#FFB74D</color>
     <color name="error">#EF5350</color>
-    <color name="income_green">#66BB6A</color>
+    <color name="income_green">#4CAF50</color>
     <color name="expense_red">#EF5350</color>
     
     <!-- Standard -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     
-    <!-- Legacy support (keeping old names mapped to new colors) -->
+    <!-- Legacy support -->
     <color name="primary_green">@color/primary_blue</color>
     <color name="button_green">@color/button_primary</color>
     <color name="link_green">@color/link_blue</color>
